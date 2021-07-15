@@ -17,7 +17,7 @@
   }
 </script>
 
-<div class="card flex flex-col">
+<div class="flex flex-col sm:w-full lg:w-w-49-percent">
   <h2 class="pb-4 capitalize outline-none font-bold">{panelName}</h2>
   <div class="flex flex-col gap-4 h-96 bg-gray-200 rounded-lg p-5 px-5 w-full">
     {#each wordsItem as item}
@@ -33,7 +33,4 @@
 </div>
 
 <style>
-  .card {
-    width: 49%;
-  }
 </style>
