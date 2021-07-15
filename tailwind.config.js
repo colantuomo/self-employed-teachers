@@ -13,6 +13,9 @@ module.exports = {
         "primary-300": "#ce5f44",
         neutral: "#F8F9FA",
       },
+      spacing: {
+        "49-percent": "49%",
+      },
     },
   },
   variants: {
