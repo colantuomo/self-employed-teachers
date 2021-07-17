@@ -10,6 +10,7 @@
   export let id: string = "";
   export let original: string = "";
   export let meaning: string = "";
+  let element: HTMLInputElement;
 
   $: canDispatchEvent = original && meaning;
   $: canRemoveOpacity = original || meaning;
@@ -20,31 +21,40 @@
     id = "";
   }
 
-  function onBlur() {
-    if (canDispatchEvent) {
-      dispatch("onEdit", {
-        id,
-        original,
-        meaning,
-      });
-      clearInputs();
+  function dispatchEvent() {
+    dispatch("onEdit", {
+      id,
+      original,
+      meaning,
+    });
+    clearInputs();
+  }
+
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key === "Enter" && canDispatchEvent) {
+      dispatchEvent();
+      element.focus();
     }
+  }
+
+  function init(el: HTMLInputElement) {
+    element = el;
   }
 </script>
 
 <div
+  on:keydown={onKeyDown}
   class="flex gap-2 bg-white rounded-lg p-1 w-full items-center {!canRemoveOpacity
     ? 'opacity-40'
     : ''}"
 >
   <input
-    on:blur={onBlur}
+    use:init
     bind:value={original}
     class="h-10 w-full pl-3 text-gray-400 outline-none text-lg"
   />
   |
   <input
-    on:blur={onBlur}
     bind:value={meaning}
     class="h-10 w-full pl-3 text-gray-400 outline-none text-lg"
   />

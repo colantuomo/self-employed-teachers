@@ -4,7 +4,7 @@
 </script>
 
 <div>
-  <div class="flex flex-wrap gap-4 py-14">
+  <div class="flex flex-wrap gap-4 pb-14">
     <WordsPanel panelName="verbs" wordsItem={$wordsItems.verbs} />
     <WordsPanel panelName="vocabularies" wordsItem={$wordsItems.vocabularies} />
     <WordsPanel panelName="grammars" wordsItem={$wordsItems.grammars} />
