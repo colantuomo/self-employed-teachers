@@ -1,13 +1,12 @@
-<script lang="ts">
-  import WordsPanel from "../components/WordsPanel.svelte";
-  import { wordsItems } from "../stores/localStore";
+<script>
+  import Sidemenu from "../components/Sidemenu.svelte";
 </script>
 
-<div>
-  <div class="flex flex-wrap gap-4 pb-14">
-    <WordsPanel panelName="verbs" wordsItem={$wordsItems.verbs} />
-    <WordsPanel panelName="vocabularies" wordsItem={$wordsItems.vocabularies} />
-    <WordsPanel panelName="grammars" wordsItem={$wordsItems.grammars} />
-    <WordsPanel panelName="expressions" wordsItem={$wordsItems.expressions} />
+<div class="flex justify-between">
+  <div class="container mx-auto">
+    <h2>Home</h2>
+  </div>
+  <div class="p-4">
+    <Sidemenu />
   </div>
 </div>

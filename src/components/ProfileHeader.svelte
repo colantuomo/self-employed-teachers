@@ -1,11 +1,13 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
+  import { userStore } from "../stores";
 </script>
 
 <div class="fixed p-6 bg-white w-full z-10">
   <div class="container mx-auto flex justify-between items-center">
     <div>
       <input
+        value={$userStore.displayName}
         class="font-bold text-4xl outline-none placeholder-gray-200"
         placeholder="Insert the name here..."
       />
