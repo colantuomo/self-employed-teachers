@@ -15,6 +15,7 @@ module.exports = {
       },
       spacing: {
         "49-percent": "49%",
+        120: "40rem",
       },
       height: {
         "10v": "10vh",
