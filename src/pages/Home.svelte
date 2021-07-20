@@ -45,7 +45,10 @@
       </div>
     {/if}
     {#each students as item}
-      <StudentCard {...item} createdAt={item.createdAt.toDate()} />
+      <StudentCard
+        {...item}
+        createdAt={item.createdAt && item.createdAt.toDate()}
+      />
     {/each}
   </div>
   <div class="p-4">
