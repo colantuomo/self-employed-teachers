@@ -39,11 +39,12 @@
       hourValue: undefined,
       profilePicture: "",
     };
+    avatar = "";
   }
 
-  async function createUser() {
+  function createUser() {
     form.teacherId = $userStore?.uid;
-    await Students.add(form);
+    Students.add(form);
     clearForm();
     closeModal();
   }

@@ -3,11 +3,17 @@
   import StudentCard from "../components/StudentCard.svelte";
   import { Students } from "../services";
   import { userStore } from "../stores";
+  import { studentsStore } from "../stores/studentsStore";
   let students = [];
   userStore.subscribe(async (user) => {
     if (!user) return;
-    students = await Students.all(user.uid);
-    console.log(students);
+    Students.all(user.uid);
+  });
+  studentsStore.subscribe((st) => {
+    if (st) {
+      console.log(st);
+      students = st;
+    }
   });
 </script>
 
@@ -35,16 +41,11 @@
             />
           </svg>
         </div>
-        <!-- <p>Está meio vazio por aqui...</p> -->
         <p>Você pode adicionar novos alunos clicando em <b>Novo Aluno</b></p>
       </div>
     {/if}
     {#each students as item}
-      <StudentCard
-        name={item.name}
-        profilePicture={item.profilePicture}
-        createdAt={item.createdAt.toDate()}
-      />
+      <StudentCard {...item} createdAt={item.createdAt.toDate()} />
     {/each}
   </div>
   <div class="p-4">

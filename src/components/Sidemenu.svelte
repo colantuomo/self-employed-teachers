@@ -22,9 +22,10 @@
     <p class="font-bold">{$userStore?.displayName ?? ""}</p>
     <Button name="Novo aluno" on:click={() => (showModal = !showModal)} />
     <Button
+      disabled
       secondary
       name="Calendário"
-      on:click={() => console.log("new student")}
+      on:click={() => console.log("calendary")}
     />
     <Button secondary name="Home" on:click={() => navigate("/")} />
   </div>
