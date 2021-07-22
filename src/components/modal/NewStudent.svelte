@@ -49,6 +49,11 @@
     closeModal();
   }
 
+  function cancel() {
+    clearForm();
+    closeModal();
+  }
+
   // export const moneyMask = (ev: any) => {
   //   let value = ev.target.value;
   //   value = value.replace(".", "").replace(",", "").replace(/\D/g, "");
@@ -116,7 +121,7 @@
         </div>
       </div>
       <div class="flex justify-end p-6 gap-6 mt-10">
-        <Button name="Cancelar" on:click={closeModal} secondary />
+        <Button name="Cancelar" on:click={cancel} secondary />
         <Button
           name="Adicionar"
           on:click={createUser}

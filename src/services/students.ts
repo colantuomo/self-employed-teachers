@@ -1,15 +1,10 @@
-import { db, firebase } from "../../init-firebase";
+import { db, firebase } from "../firebase";
 import { studentsStore } from "../stores/studentsStore";
 import type { Student } from "./interfaces";
 
 const COLLECTION = "students";
 
 async function all(teacherId: string) {
-  // const { docs } = await db
-  //   .collection(COLLECTION)
-  //   .where("teacherId", "==", teacherId)
-  //   .get();
-  // return docs.map((students) => students.data());
   db.collection(COLLECTION)
     .where("teacherId", "==", teacherId)
     .onSnapshot(({ docs }) => {

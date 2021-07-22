@@ -51,11 +51,11 @@
   <input
     use:init
     bind:value={original}
-    class="h-10 w-full pl-3 text-gray-400 outline-none text-lg"
+    class="h-10 w-full pl-3 text-gray-400 outline-none xl:text-lg md:text-base"
   />
   |
   <input
     bind:value={meaning}
-    class="h-10 w-full pl-3 text-gray-400 outline-none text-lg"
+    class="h-10 w-full pl-3 text-gray-400 outline-none xl:text-lg md:text-base"
   />
 </div>

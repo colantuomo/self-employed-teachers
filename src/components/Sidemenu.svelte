@@ -1,7 +1,7 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
 
-  import { auth } from "../../init-firebase";
+  import { auth } from "../firebase";
   import { userStore } from "../stores";
   import Button from "./Button.svelte";
   import NewStudent from "./modal/NewStudent.svelte";

@@ -1,3 +1,4 @@
+import type { firebase } from "../../firebase";
 export interface Student {
   id?: string;
   name: string;
@@ -5,5 +6,15 @@ export interface Student {
   hourValue: number;
   teacherId?: string;
   profilePicture?: string;
-  createdAt?: any;
+  createdAt?: firebase.firestore.FieldValue;
+}
+
+export interface Classroom {
+  id?: string;
+  classDate: firebase.firestore.FieldValue;
+  printscreen: string;
+  studentId: string;
+  studentName: string;
+  teacherId: string;
+  templateId: string;
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
-  import { auth, providers, firebase } from "../../init-firebase";
+  import { auth, providers, firebase } from "../firebase";
   import { userStore } from "../stores/userStore";
   async function login() {
     auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);

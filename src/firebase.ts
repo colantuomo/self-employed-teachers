@@ -1,4 +1,8 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
+import "firebase/analytics";
+
 const firebaseConfig = {
   apiKey: "AIzaSyD55FI31n3HbUJJsdnnp3z9I5Wl7xDF_gc",
   authDomain: "digital-classroom-1.firebaseapp.com",
@@ -8,6 +12,7 @@ const firebaseConfig = {
   appId: "1:207283044478:web:d2e0e88de58a02cadc582f",
   measurementId: "G-D7XH90CHX4",
 };
+
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();

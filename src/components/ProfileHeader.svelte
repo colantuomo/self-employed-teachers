@@ -7,7 +7,7 @@
   <div class="container mx-auto flex justify-between items-center">
     <div>
       <input
-        value={$userStore.displayName}
+        value={$userStore?.displayName ?? ""}
         class="font-bold text-4xl outline-none placeholder-gray-200"
         placeholder="Insert the name here..."
       />
