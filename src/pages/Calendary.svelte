@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { format, formatDistance, formatRelative, subDays } from "date-fns";
+  import { ptBR } from "date-fns/locale";
   const TODAY_DATE = new Date();
   const CURRENT_MONTH = TODAY_DATE.getMonth();
   const CURRENT_DAY = TODAY_DATE.getDate();
@@ -35,7 +37,7 @@
 <div class="p-6 rounded-lg w-full bg-white h-95v">
   <div class="flex flex-col gap-6">
     <div class="flex gap-4 items-center text-center h-9">
-      <div
+      <button
         class="cursor-pointer"
         on:click={() => changeMonth(--selectionMonth)}
       >
@@ -53,12 +55,12 @@
             d="M15 19l-7-7 7-7"
           />
         </svg>
-      </div>
+      </button>
       <h2 class="text-2xl capitalize w-44 select-none outline-none">
         {currentMonthName}
         {CURRENT_YEAR}
       </h2>
-      <div
+      <button
         class="cursor-pointer"
         on:click={() => changeMonth(++selectionMonth)}
       >
@@ -76,7 +78,7 @@
             d="M9 5l7 7-7 7"
           />
         </svg>
-      </div>
+      </button>
     </div>
     <div class="flex flex-wrap gap-2 xl:gap-5">
       {#each daysOfTheMonth as day}
@@ -88,6 +90,11 @@
             : ''}"
         >
           <p class="text-lg font-bold">{day}</p>
+          <p class="text-gray-400">
+            {format(new Date(CURRENT_YEAR, selectionMonth, day), "eeee", {
+              locale: ptBR,
+            }).substring(0, 3)}.
+          </p>
         </div>
       {/each}
     </div>
