@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, getDay } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 const TODAY_DATE = new Date();
@@ -20,11 +20,12 @@ function daysInMonth(month: number, year: number) {
 }
 
 function dayOfTheWeekName(
-  month: number,
   day: number,
+  month: number,
   type: "full" | "short" = "short"
 ) {
-  const weekName = format(new Date(CURRENT_YEAR, month, day), "eeee", {
+  const date = new Date(CURRENT_YEAR, month, day);
+  const weekName = format(date, "eeee", {
     locale: ptBR,
   });
   return type === "short" ? weekName.substring(0, 3) : weekName;

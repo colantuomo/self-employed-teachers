@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   import SideArrow from "../../icons/SideArrow.svelte";
   import Button from "../Button.svelte";
   import Day from "./components/Day.svelte";
@@ -33,6 +35,13 @@
   function setCurrentMonth(month: number) {
     selectedMonth = month;
   }
+
+  const dispatch = createEventDispatcher();
+  function daySelected(day: number) {
+    dispatch("daySelected", {
+      date: new Date(CURRENT_YEAR, selectedMonth, day),
+    });
+  }
 </script>
 
 <div class="flex flex-col gap-6">
@@ -66,6 +75,7 @@
   <div class="flex flex-wrap gap-2 xl:gap-5">
     {#each daysOfTheMonth as day}
       <Day
+        on:click={() => daySelected(day)}
         {day}
         dayOfWeek={`${dayOfTheWeekName(day, selectedMonth)}.`}
         highlighCurrentDay={canHighlighCurrentDay(day)}

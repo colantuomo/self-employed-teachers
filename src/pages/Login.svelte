@@ -14,7 +14,7 @@
 </script>
 
 <div class="flex">
-  <div class="flex flex-col gap-24 px-6 pt-44 flex-1 items-center">
+  <div class="flex flex-col gap-24 px-6 pt-44 flex-1 items-center select-none">
     <div>
       <h2 class="text-5xl text-primary">Digital</h2>
       <h2 class="text-5xl font-bold text-primary">Classroom</h2>
