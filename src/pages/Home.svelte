@@ -12,15 +12,14 @@
   let classrooms: Classroom[] = [];
   userStore.subscribe(async (user) => {
     if (!user) return;
-    // Classrooms.all(user.uid).then((docs) => (classrooms = docs));
-    // Students.all(user.uid);
+    Classrooms.all(user.uid).then((docs) => (classrooms = docs));
+    Students.all(user.uid);
   });
-  // studentsStore.subscribe((st) => {
-  //   if (st) {
-  //     console.log(st);
-  //     students = st;
-  //   }
-  // });
+  studentsStore.subscribe((st) => {
+    if (st) {
+      students = st;
+    }
+  });
 </script>
 
 <div class="container mx-auto flex gap-5 p-4 w-full justify-around">
@@ -34,7 +33,10 @@
     {/each}
   </div>
   <div class="flex flex-col gap-4">
-    <Info on:click={() => navigate(`students`)} />
+    <Info
+      studentsLenght={students.length}
+      on:click={() => navigate(`students`)}
+    />
     <div class="flex flex-col h-40 w-full bg-green-300 rounded-lg p-6 gap-6">
       <p class="text-4xl font-bold">0</p>
       <p class="text-xl">Aulas ministradas</p>

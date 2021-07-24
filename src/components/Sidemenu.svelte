@@ -24,7 +24,7 @@
     <Button
       secondary
       name="Calendário"
-      on:click={() => navigate("calendary")}
+      on:click={() => navigate("calendar")}
     />
     <Button secondary name="Home" on:click={() => navigate("/")} />
   </div>

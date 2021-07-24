@@ -4,7 +4,6 @@
   let students = [];
   studentsStore.subscribe((st) => {
     if (st) {
-      console.log("Students", st);
       students = st;
     }
   });

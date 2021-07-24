@@ -1,6 +1,7 @@
 <script lang="ts">
   import { auth } from "./firebase";
   import { Router, Route, navigate } from "svelte-navigator";
+  import { userStore } from "./stores";
   import Tailwind from "./utils/Tailwind.svelte";
 
   import Login from "./pages/Login.svelte";
@@ -10,9 +11,10 @@
   import ContentWithSideMenu from "./templates/ContentWithSideMenu.svelte";
 
   import ProfileHeader from "./components/ProfileHeader.svelte";
-  import { userStore } from "./stores";
-  import Calendary from "./pages/Calendary.svelte";
+  import TeacherCalendar from "./pages/TeacherCalendar.svelte";
+
   export const url = "";
+
   auth.onAuthStateChanged((item) => {
     if (item) {
       $userStore = item;
@@ -37,9 +39,9 @@
         <Students />
       </ContentWithSideMenu>
     </Route>
-    <Route path="calendary">
+    <Route path="calendar">
       <ContentWithSideMenu>
-        <Calendary />
+        <TeacherCalendar />
       </ContentWithSideMenu>
     </Route>
     <Route path="classroom/:id" let:params>
