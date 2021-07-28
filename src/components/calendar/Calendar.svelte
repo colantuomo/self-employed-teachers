@@ -51,7 +51,7 @@
         class="cursor-pointer hover:bg-gray-100 p-4 rounded-lg"
         on:click={() => changeMonth(--selectedMonth)}
       >
-        <SideArrow isRightSide={false} />
+        <SideArrow left />
       </button>
       <h2 class="text-2xl capitalize w-44 select-none outline-none">
         {currentMonthName}

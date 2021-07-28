@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import { fade } from "svelte/transition";
 
   const dispatch = createEventDispatcher();
   function click() {
@@ -8,6 +9,7 @@
 </script>
 
 <div
+  transition:fade|local
   on:click={click}
   class="flex justify-between w-full h-14 bg-white rounded-lg p-6 items-center hover:drop-shadow-xl cursor-pointer transition duration-100 ease-in-out"
 >
