@@ -7,17 +7,19 @@
   import Login from "./pages/Login.svelte";
   import Classroom from "./pages/Classroom.svelte";
   import Home from "./pages/Home.svelte";
-  import Students from "./pages/Students.svelte";
   import ContentWithSideMenu from "./templates/ContentWithSideMenu.svelte";
 
   import ProfileHeader from "./components/ProfileHeader.svelte";
   import TeacherCalendar from "./pages/TeacherCalendar.svelte";
+  import * as Services from "./services";
+  import Students from "./pages/Students.svelte";
 
   export const url = "";
 
   auth.onAuthStateChanged((item) => {
     if (item) {
       $userStore = item;
+      Services.Students.all(item.uid);
       return;
     }
     navigate("login");

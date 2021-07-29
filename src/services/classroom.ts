@@ -1,4 +1,4 @@
-import { db } from "../firebase";
+import { db, firebase } from "../firebase";
 import type { Classroom } from "./interfaces";
 
 const COLLECTION = "classes";
@@ -16,4 +16,8 @@ async function all(id: string): Promise<Classroom[]> {
   return docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Classroom[];
 }
 
-export { byId, all };
+async function add(classroom: any) {
+  return await db.collection(COLLECTION).add(classroom);
+}
+
+export { byId, all, add };

@@ -3,23 +3,22 @@
 
   import NextClass from "../components/cards/NextClass.svelte";
   import Info from "../components/cards/Info.svelte";
-  import { Classrooms, Students } from "../services";
+  import { Classrooms } from "../services";
   import type { Classroom, Student } from "../services/interfaces";
   import { userStore } from "../stores";
   import { studentsStore } from "../stores/studentsStore";
 
   let students: Student[] = [];
   let classrooms: Classroom[] = [];
-  // userStore.subscribe(async (user) => {
-  //   if (!user) return;
-  //   Classrooms.all(user.uid).then((docs) => (classrooms = docs));
-  //   Students.all(user.uid);
-  // });
-  // studentsStore.subscribe((st) => {
-  //   if (st) {
-  //     students = st;
-  //   }
-  // });
+  userStore.subscribe(async (user) => {
+    if (!user) return;
+    Classrooms.all(user.uid).then((docs) => (classrooms = docs));
+  });
+  studentsStore.subscribe((st) => {
+    if (st) {
+      students = st;
+    }
+  });
 </script>
 
 <div class="container mx-auto flex gap-5 p-4 w-full justify-around">
@@ -27,7 +26,7 @@
     <h2 class="text-3xl font-bold mb-5">Próximas aulas</h2>
     {#each classrooms as classroom}
       <NextClass
-        {...classroom}
+        {classroom}
         on:click={() => navigate(`classroom/${classroom.id}`)}
       />
     {/each}

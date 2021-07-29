@@ -9,9 +9,11 @@
   });
 </script>
 
-{#each students as student}
-  <StudentCard
-    {...student}
-    createdAt={student.createdAt && student.createdAt.toDate()}
-  />
-{/each}
+<div class="flex flex-col gap-2 items-center overflow-y-auto h-95v overflow-x-hidden">
+  {#each students as student}
+    <StudentCard
+      {...student}
+      createdAt={student.createdAt && student.createdAt.toDate()}
+    />
+  {/each}
+</div>

@@ -1,13 +1,16 @@
 <script lang="ts">
   import { format } from "date-fns";
   import ptBR from "date-fns/locale/pt-BR";
+  import { firebase } from "../../firebase";
 
   import { createEventDispatcher } from "svelte";
   import Clock from "../../icons/Clock.svelte";
-  import Edit from "../../icons/Edit.svelte";
-import Autocomplete from "../Autocomplete.svelte";
-  import Button from "../Button.svelte";
+  import { Classrooms } from "../../services";
+  import type { Classroom, Student } from "../../services/interfaces";
+  import { userStore } from "../../stores";
 
+  import Autocomplete from "../Autocomplete.svelte";
+  import Button from "../Button.svelte";
   import ContentToggle from "../ContentToggle.svelte";
   import BaseModal from "./BaseModal.svelte";
 
@@ -16,12 +19,37 @@ import Autocomplete from "../Autocomplete.svelte";
   export let showModal: boolean = false;
   export let daySelected: Date;
 
+  let form: { student: Student; date: Date } = {} as any;
+
   function onTimeSelected(event: any) {
-    console.log("time", event.target.value);
+    const time = event.target.value.split(":");
+    const dateSelected = new Date(daySelected);
+    dateSelected.setHours(time[0], time[1]);
+    console.log(dateSelected);
+    form.date = dateSelected;
+  }
+
+  function onItemSelected({ detail }: any) {
+    form.student = detail as Student;
   }
 
   function closeModal() {
+    form = {
+      student: undefined,
+      date: undefined,
+    };
     dispatch("close");
+  }
+
+  async function scheduleAClass(classroom: { student: Student; date: Date }) {
+    const classr: Classroom = {
+      date: firebase.firestore.Timestamp.fromDate(classroom.date),
+      studentId: classroom.student.id,
+      studentName: classroom.student.name,
+      teacherId: $userStore.uid,
+    };
+    await Classrooms.add(classr);
+    closeModal();
   }
 </script>
 
@@ -49,11 +77,13 @@ import Autocomplete from "../Autocomplete.svelte";
         <div slot="slot2" class="flex flex-col h-full justify-between">
           <div class="flex flex-col items-center gap-8">
             <div>
-              <Autocomplete/>
+              <Autocomplete on:itemSelection={onItemSelected} />
             </div>
             <div class="flex flex-col items-center gap-4">
               <div class="flex gap-6">
-                <h2 class="text-3xl font-bold">Joao Carlos</h2>
+                <h2 class="text-3xl font-bold">
+                  {form?.student ? form.student?.name : "--"}
+                </h2>
                 <h2 class="text-3xl">
                   {format(daySelected, "dd/MM", { locale: ptBR })}
                 </h2>
@@ -71,7 +101,7 @@ import Autocomplete from "../Autocomplete.svelte";
           <div class="flex gap-4 w-full justify-end">
             <div class="w-1/2 flex gap-2">
               <Button secondary name="Cancelar" />
-              <Button name="Confirmar" />
+              <Button on:click={() => scheduleAClass(form)} name="Confirmar" />
             </div>
           </div>
         </div>

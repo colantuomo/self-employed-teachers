@@ -11,10 +11,8 @@ export interface Student {
 
 export interface Classroom {
   id?: string;
-  classDate: firebase.firestore.FieldValue;
-  printscreen: string;
+  date: firebase.firestore.Timestamp;
   studentId: string;
   studentName: string;
   teacherId: string;
-  templateId: string;
 }

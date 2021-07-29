@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fade } from "svelte/transition";
+
   import { Students } from "../services";
   export let id: string;
   export let name: string;
@@ -10,6 +12,7 @@
 </script>
 
 <div
+  transition:fade|local
   on:click={remove}
   class="w-120 h-32 rounded-lg bg-gray-800 p-4 flex gap-6 text-white hover:bg-gray-900 hover:shadow-xl hover:cursor-pointer"
 >
