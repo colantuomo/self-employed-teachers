@@ -10,6 +10,7 @@
 
   let students: Student[] = [];
   let classrooms: Classroom[] = [];
+
   userStore.subscribe(async (user) => {
     if (!user) return;
     Classrooms.all(user.uid).then((docs) => (classrooms = docs));
@@ -24,12 +25,14 @@
 <div class="container mx-auto flex gap-5 p-4 w-full justify-around">
   <div class="flex flex-col gap-6 h-full w-full bg-gray-100 rounded-lg p-6">
     <h2 class="text-3xl font-bold mb-5">Próximas aulas</h2>
-    {#each classrooms as classroom}
-      <NextClass
-        {classroom}
-        on:click={() => navigate(`classroom/${classroom.id}`)}
-      />
-    {/each}
+    <div class="h-70v overflow-y-auto flex flex-col gap-4">
+      {#each classrooms as classroom}
+        <NextClass
+          {classroom}
+          on:click={() => navigate(`classroom/${classroom.studentId}`)}
+        />
+      {/each}
+    </div>
   </div>
   <div class="flex flex-col gap-4">
     <Info

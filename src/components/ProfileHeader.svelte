@@ -1,16 +1,27 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
-  import { userStore } from "../stores";
+
+  import type { Student } from "../services/interfaces";
+  import { studentsStore } from "../stores/studentsStore";
+  import Button from "./Button.svelte";
+
+  export let userId: string;
+  let student: Student;
+  studentsStore.subscribe(
+    (students) =>
+      (student = students && students.filter((st) => st.id === userId)[0])
+  );
+  function downloadClass() {
+    window.print();
+  }
 </script>
 
 <div class="fixed p-6 bg-white w-full z-10">
   <div class="container mx-auto flex justify-between items-center">
     <div>
-      <input
-        value={$userStore?.displayName ?? ""}
-        class="font-bold text-4xl outline-none placeholder-gray-200"
-        placeholder="Insert the name here..."
-      />
+      <h2 class="font-bold text-4xl outline-none placeholder-gray-200">
+        {student?.name ?? ""}
+      </h2>
       <p class="text-gray-400">
         {new Intl.DateTimeFormat("pt-br", {
           dateStyle: "full",
@@ -18,10 +29,9 @@
         }).format(new Date())}
       </p>
     </div>
-    <button
-      on:click={() => navigate("login")}
-      class="btn h-12 w-56 rounded-lg hover:bg-primary-300 bg-primary text-white font-bold"
-      >Voltar a home</button
-    >
+    <div class="flex gap-4 w-72">
+      <Button secondary name="Voltar a home" on:click={() => navigate("/")} />
+      <Button name="Baixar aula" on:click={downloadClass} />
+    </div>
   </div>
 </div>

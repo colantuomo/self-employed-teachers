@@ -9,7 +9,7 @@
   });
 </script>
 
-<div class="flex flex-col gap-2 items-center overflow-y-auto h-95v overflow-x-hidden">
+<div class="flex flex-wrap gap-2 overflow-y-auto h-95v overflow-x-hidden">
   {#each students as student}
     <StudentCard
       {...student}

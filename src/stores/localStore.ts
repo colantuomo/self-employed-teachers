@@ -13,7 +13,7 @@ export interface WordsItems {
   expressions: Words[];
 }
 
-const DEFAULT_ITEMS: WordsItems = {
+export const DEFAULT_ITEMS: WordsItems = {
   verbs: [],
   vocabularies: [],
   grammars: [],

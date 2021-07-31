@@ -1,10 +1,22 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
+
+  import ProfileHeader from "../components/ProfileHeader.svelte";
   import WordsPanel from "../components/WordsPanel.svelte";
-  import { wordsItems } from "../stores/localStore";
+  import { DEFAULT_ITEMS, wordsItems } from "../stores/localStore";
   export let id: string;
-  console.log(id);
+
+  function clearAllWords() {
+    wordsItems.set(DEFAULT_ITEMS);
+  }
+
+  onDestroy(() => {
+    clearAllWords();
+  });
 </script>
 
+<ProfileHeader userId={id} />
+<div class="pb-36" />
 <div>
   <div class="container mx-auto flex flex-wrap gap-4 pb-14 px-4">
     <WordsPanel panelName="verbs" wordsItem={$wordsItems.verbs} />

@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { format } from "date-fns";
   import { createEventDispatcher } from "svelte";
+  import { format } from "date-fns";
+  import ptBR from "date-fns/locale/pt-BR";
   import { fade } from "svelte/transition";
+
   import type { Classroom } from "../../services/interfaces";
 
   export let classroom: Classroom;
@@ -20,7 +22,12 @@
   <p class="font-bold">{classroom.studentName}</p>
   <div class="flex gap-4">
     <p class="text-primary">
-      {classroom.date ? format(classroom.date.toDate(), "dd/MM") : "--"}
+      {classroom.date
+        ? format(classroom.date.toDate(), "ccc dd/MM", { locale: ptBR })
+        : "--"}
+    </p>
+    <p class="text-primary font-bold">
+      {classroom.date ? format(classroom.date.toDate(), "H:mm") : "--"}
     </p>
   </div>
 </div>

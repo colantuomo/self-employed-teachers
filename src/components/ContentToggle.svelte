@@ -21,7 +21,7 @@
     <Button square name="Agendar" on:click={() => setScreenState("slot2")} />
   </div>
 </div>
-<div class="p-6 h-full w-full">
+<div class="p-6 h-full w-full overflow-y-auto">
   {#if state === "slot1"}
     <slot name="slot1" />
   {/if}

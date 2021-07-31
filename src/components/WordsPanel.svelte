@@ -19,7 +19,7 @@
 
 <div class="flex flex-col sm:w-full lg:w-49-percent">
   <h2 class="pb-4 capitalize outline-none font-bold">{panelName}</h2>
-  <div class="flex flex-col gap-4 h-96 bg-gray-200 rounded-lg p-5 px-5 w-full">
+  <div class="flex flex-col gap-4 h-96 bg-gray-200 rounded-lg p-5 px-5 w-full overflow-y-auto">
     {#each wordsItem as item}
       <WordInput
         on:onEdit={onEdit}

@@ -47,11 +47,7 @@
       </ContentWithSideMenu>
     </Route>
     <Route path="classroom/:id" let:params>
-      <ProfileHeader />
-      <div class="pb-36" />
-      <div class="container mx-auto">
-        <Classroom id={params.id} />
-      </div>
+      <Classroom id={params.id} />
     </Route>
   </Router>
 </main>
