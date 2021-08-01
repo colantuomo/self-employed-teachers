@@ -21,9 +21,16 @@
     id = "";
   }
 
+  function guidGenerator() {
+    var S4 = function () {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return S4() + S4() + "-" + S4() + "-" + S4();
+  }
+
   function dispatchEvent() {
     dispatch("onEdit", {
-      id,
+      id: id ? id : guidGenerator(),
       original,
       meaning,
     });
@@ -37,6 +44,13 @@
     }
   }
 
+  function onBlur() {
+    console.log("blur!");
+    if (canDispatchEvent) {
+      dispatchEvent();
+    }
+  }
+
   function init(el: HTMLInputElement) {
     element = el;
   }
@@ -44,9 +58,9 @@
 
 <div
   on:keydown={onKeyDown}
-  class="flex gap-2 bg-white rounded-lg p-1 w-full items-center {!canRemoveOpacity
-    ? 'opacity-40'
-    : ''}"
+  class="flex gap-2 bg-white rounded-lg p-1 w-full items-center {!canDispatchEvent && canRemoveOpacity
+    ? 'border-2 border-red-500'
+    : ''} {!canRemoveOpacity ? 'opacity-40' : ''}"
 >
   <input
     use:init

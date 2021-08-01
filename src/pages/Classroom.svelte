@@ -17,7 +17,7 @@
 
 <ProfileHeader userId={id} />
 <div class="pb-36" />
-<div>
+<div id="classroom">
   <div class="container mx-auto flex flex-wrap gap-4 pb-14 px-4">
     <WordsPanel panelName="verbs" wordsItem={$wordsItems.verbs} />
     <WordsPanel panelName="vocabularies" wordsItem={$wordsItems.vocabularies} />
