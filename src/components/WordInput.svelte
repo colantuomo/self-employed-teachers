@@ -39,7 +39,6 @@
 
   function onKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && canDispatchEvent) {
-      dispatchEvent();
       element.focus();
     }
   }
@@ -58,7 +57,8 @@
 
 <div
   on:keydown={onKeyDown}
-  class="flex gap-2 bg-white rounded-lg p-1 w-full items-center {!canDispatchEvent && canRemoveOpacity
+  class="flex gap-2 bg-white rounded-lg p-1 w-full items-center {!canDispatchEvent &&
+  canRemoveOpacity
     ? 'border-2 border-red-500'
     : ''} {!canRemoveOpacity ? 'opacity-40' : ''}"
 >
@@ -69,6 +69,7 @@
   />
   |
   <input
+    on:blur={onBlur}
     bind:value={meaning}
     class="h-10 w-full pl-3 text-gray-400 outline-none xl:text-lg md:text-base"
   />
