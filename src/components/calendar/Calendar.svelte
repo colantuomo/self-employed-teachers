@@ -1,7 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
 
+  import type { Classroom } from "../../services/interfaces";
   import SideArrow from "../../icons/SideArrow.svelte";
+  import { Classrooms } from "../../services";
+  import { userStore } from "../../stores";
   import Button from "../Button.svelte";
   import Day from "./components/Day.svelte";
   import {
@@ -15,7 +18,12 @@
   } from "./utils";
 
   let selectedMonth = TODAY_DATE.getMonth();
-  $: daysOfTheMonth = daysInMonth(selectedMonth, CURRENT_YEAR);
+  let classrooms: Classroom[] = [];
+  $: daysOfTheMonth = daysInMonth(
+    selectedMonth,
+    CURRENT_YEAR,
+    classrooms as any
+  );
   $: currentMonthName = monthName(CURRENT_YEAR, selectedMonth);
   $: isCurrentMonth = selectedMonth === CURRENT_MONTH;
   function canHighlighCurrentDay(day: number) {
@@ -42,6 +50,24 @@
       date: new Date(CURRENT_YEAR, selectedMonth, day),
     });
   }
+
+  function classroomCount(day: number) {
+    let count = 0;
+    classrooms.forEach((classroom) => {
+      if (
+        classroom.date.toDate().getDate() === day &&
+        classroom.date.toDate().getMonth() === selectedMonth
+      ) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  userStore.subscribe(async (user) => {
+    if (!user) return;
+    Classrooms.all(user.uid).then((docs) => (classrooms = docs));
+  });
 </script>
 
 <div class="flex flex-col gap-6">
@@ -79,6 +105,7 @@
         {day}
         dayOfWeek={`${dayOfTheWeekName(day, selectedMonth)}.`}
         highlighCurrentDay={canHighlighCurrentDay(day)}
+        amountOfClasses={classroomCount(day)}
       />
     {/each}
   </div>

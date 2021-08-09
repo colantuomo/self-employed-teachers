@@ -6,7 +6,8 @@ const CURRENT_MONTH = TODAY_DATE.getMonth();
 const CURRENT_DAY = TODAY_DATE.getDate();
 const CURRENT_YEAR = TODAY_DATE.getFullYear();
 
-function daysInMonth(month: number, year: number) {
+function daysInMonth(month: number, year: number, classrooms: []) {
+  console.log(classrooms);
   const TOTAL_MONTH_DAYS = 32;
   let days = [];
   const daysInMonth =

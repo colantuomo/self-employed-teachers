@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
 
   import ProfileHeader from "../components/ProfileHeader.svelte";
   import WordsPanel from "../components/WordsPanel.svelte";
@@ -7,8 +7,12 @@
   export let id: string;
 
   function clearAllWords() {
-    wordsItems.set(DEFAULT_ITEMS);
+    wordsItems.update(() => DEFAULT_ITEMS);
   }
+
+  onMount(() => {
+    clearAllWords();
+  });
 
   onDestroy(() => {
     clearAllWords();

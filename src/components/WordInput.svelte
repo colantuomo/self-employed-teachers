@@ -44,7 +44,6 @@
   }
 
   function onBlur() {
-    console.log("blur!");
     if (canDispatchEvent) {
       dispatchEvent();
     }
@@ -60,17 +59,19 @@
   class="flex gap-2 bg-white rounded-lg p-1 w-full items-center {!canDispatchEvent &&
   canRemoveOpacity
     ? 'border-2 border-red-500'
-    : ''} {!canRemoveOpacity ? 'opacity-40' : ''}"
+    : ''} {!canRemoveOpacity ? 'opacity-90' : ''}"
 >
   <input
+    type="text"
     use:init
     bind:value={original}
-    class="h-10 w-full pl-3 text-gray-400 outline-none xl:text-lg md:text-base"
+    class="h-10 w-full pl-3 text-gray-800 outline-none xl:text-lg md:text-base"
   />
   |
   <input
+    type="text"
     on:blur={onBlur}
     bind:value={meaning}
-    class="h-10 w-full pl-3 text-gray-400 outline-none xl:text-lg md:text-base"
+    class="h-10 w-full pl-3 text-gray-800 outline-none xl:text-lg md:text-base"
   />
 </div>
