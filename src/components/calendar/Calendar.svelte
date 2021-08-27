@@ -7,35 +7,30 @@
   import { userStore } from "../../stores";
   import Button from "../Button.svelte";
   import Day from "./components/Day.svelte";
-  import {
-    daysInMonth,
-    dayOfTheWeekName,
-    monthName,
-    TODAY_DATE,
-    CURRENT_DAY,
-    CURRENT_MONTH,
-    CURRENT_YEAR,
-  } from "./utils";
+  import { getDaysInMonth, getMonthName } from "./utils";
+  import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR } from "./constants";
 
-  let selectedMonth = TODAY_DATE.getMonth();
+  let selectedMonth = CURRENT_MONTH;
+  let selectedYear = CURRENT_YEAR;
   let classrooms: Classroom[] = [];
-  $: daysOfTheMonth = daysInMonth(
-    selectedMonth,
-    CURRENT_YEAR,
-    classrooms as any
-  );
-  $: currentMonthName = monthName(CURRENT_YEAR, selectedMonth);
+
+  $: daysOfTheMonth = getDaysInMonth(selectedYear, selectedMonth);
+  $: currentMonthName = getMonthName(new Date(selectedYear, selectedMonth));
   $: isCurrentMonth = selectedMonth === CURRENT_MONTH;
+
   function canHighlighCurrentDay(day: number) {
     return isCurrentMonth && day === CURRENT_DAY;
   }
+
   function changeMonth(month: number) {
     const DECEMBER = 11;
     const JANUARY = 0;
     if (month < JANUARY) {
       month = DECEMBER;
+      selectedYear = --selectedYear;
     } else if (month > DECEMBER) {
       month = JANUARY;
+      selectedYear = ++selectedYear;
     }
     selectedMonth = month;
   }
@@ -45,10 +40,8 @@
   }
 
   const dispatch = createEventDispatcher();
-  function daySelected(day: number) {
-    dispatch("daySelected", {
-      date: new Date(CURRENT_YEAR, selectedMonth, day),
-    });
+  function daySelected(date: Date) {
+    dispatch("daySelected", { date });
   }
 
   function classroomCount(day: number) {
@@ -81,7 +74,7 @@
       </button>
       <h2 class="text-2xl capitalize w-44 select-none outline-none">
         {currentMonthName}
-        {CURRENT_YEAR}
+        {selectedYear}
       </h2>
       <button
         class="cursor-pointer hover:bg-gray-100 p-4 rounded-lg"
@@ -101,11 +94,11 @@
   <div class="flex flex-wrap gap-2 xl:gap-5">
     {#each daysOfTheMonth as day}
       <Day
-        on:click={() => daySelected(day)}
-        {day}
-        dayOfWeek={`${dayOfTheWeekName(day, selectedMonth)}.`}
-        highlighCurrentDay={canHighlighCurrentDay(day)}
-        amountOfClasses={classroomCount(day)}
+        on:click={() => daySelected(day.fullDate)}
+        day={day.dayNumber}
+        dayOfWeek={`${day.dayOfWeek}.`}
+        highlighCurrentDay={canHighlighCurrentDay(day.dayNumber)}
+        amountOfClasses={classroomCount(day.dayNumber)}
       />
     {/each}
   </div>
