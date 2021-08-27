@@ -1,49 +1,51 @@
-import { format, getDay } from "date-fns";
+import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { TOTAL_MONTH_DAYS } from "./constants";
+import type { CalendarDay } from "./interfaces";
 
-const TODAY_DATE = new Date();
-const CURRENT_MONTH = TODAY_DATE.getMonth();
-const CURRENT_DAY = TODAY_DATE.getDate();
-const CURRENT_YEAR = TODAY_DATE.getFullYear();
+const getDaysInMonth = (year: number, month: number): Array<CalendarDay> => {
+  const result: Array<CalendarDay> = [];
+  const baseDate: Date = new Date(year, month, TOTAL_MONTH_DAYS);
+  const daysInMonth: number = TOTAL_MONTH_DAYS - baseDate.getDate();
 
-function daysInMonth(month: number, year: number, classrooms: []) {
-  console.log(classrooms);
-  const TOTAL_MONTH_DAYS = 32;
-  let days = [];
-  const daysInMonth =
-    TOTAL_MONTH_DAYS - new Date(year, month, TOTAL_MONTH_DAYS).getDate();
   for (let i = 0; i < daysInMonth; i++) {
-    days.push(i);
+    const indexDate = new Date(year, month, i + 1);
+    const day = buildDay(indexDate);
+
+    result.push(day);
   }
-  days = days.slice(1, days.length);
-  days.push(days[days.length - 1] + 1);
-  return days;
+
+  return result;
 }
 
-function dayOfTheWeekName(
-  day: number,
-  month: number,
-  type: "full" | "short" = "short"
-) {
-  const date = new Date(CURRENT_YEAR, month, day);
+const buildDay = (date: Date): CalendarDay => {
+  const dayNumber = date.getDate();
+  const dayOfWeek = getDayOfWeekName(date);
+  const monthName = getMonthName(date);
+
+  return {
+    dayNumber,
+    dayOfWeek,
+    monthName,
+    fullDate: date,
+  }
+}
+
+const getDayOfWeekName = (date: Date, type: "full" | "short" = "short") => {
   const weekName = format(date, "eeee", {
     locale: ptBR,
   });
+
   return type === "short" ? weekName.substring(0, 3) : weekName;
 }
 
-function monthName(year: number, month: number, day: number = 1) {
+const getMonthName = (date: Date) => {
   return Intl.DateTimeFormat("pt-BR", {
     month: "short",
-  }).format(new Date(year, month, day));
+  }).format(date);
 }
 
 export {
-  daysInMonth,
-  dayOfTheWeekName,
-  monthName,
-  TODAY_DATE,
-  CURRENT_DAY,
-  CURRENT_MONTH,
-  CURRENT_YEAR,
+  getDaysInMonth,
+  getMonthName,
 };
