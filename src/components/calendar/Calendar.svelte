@@ -7,14 +7,14 @@
   import { userStore } from "../../stores";
   import Button from "../Button.svelte";
   import Day from "./components/Day.svelte";
-  import { getDaysInMonth, getMonthName } from "./utils";
+  import { getWeeksInMonth, getMonthName } from "./utils";
   import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR } from "./constants";
 
   let selectedMonth = CURRENT_MONTH;
   let selectedYear = CURRENT_YEAR;
   let classrooms: Classroom[] = [];
 
-  $: daysOfTheMonth = getDaysInMonth(selectedYear, selectedMonth);
+  $: weeks = getWeeksInMonth(selectedYear, selectedMonth);
   $: currentMonthName = getMonthName(new Date(selectedYear, selectedMonth));
   $: isCurrentMonth = selectedMonth === CURRENT_MONTH;
 
@@ -92,14 +92,16 @@
     </div>
   </div>
   <div class="flex flex-wrap gap-2 xl:gap-5">
-    {#each daysOfTheMonth as day}
-      <Day
-        on:click={() => daySelected(day.fullDate)}
-        day={day.dayNumber}
-        dayOfWeek={`${day.dayOfWeek}.`}
-        highlighCurrentDay={canHighlighCurrentDay(day.dayNumber)}
-        amountOfClasses={classroomCount(day.dayNumber)}
-      />
+    {#each weeks as week}
+      {#each week as day}
+        <Day
+          on:click={() => daySelected(day.fullDate)}
+          day={day.dayNumber}
+          dayOfWeek={`${day.dayOfWeek}.`}
+          highlighCurrentDay={canHighlighCurrentDay(day.dayNumber)}
+          amountOfClasses={classroomCount(day.dayNumber)}
+        />
+      {/each}
     {/each}
   </div>
 </div>

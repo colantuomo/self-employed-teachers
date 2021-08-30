@@ -5,7 +5,6 @@
   export let amountOfClasses: number = 0;
 
   function colorBasedOnClassesAmount(amount: number) {
-    console.log(amount, day);
     if (amount === 0) return "";
     if (amount <= 3) {
       return "bg-blue-100 hover:bg-blue-300";
